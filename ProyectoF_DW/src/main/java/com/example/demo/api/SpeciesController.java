@@ -39,10 +39,10 @@ public class SpeciesController {
 		List<Species> species = this.speciesRepository.findAll();
 
 		// map from entity to view model
-		List<SpeciesViewModel> notesViewModel = species.stream().map(specie -> this.mapper.convertToSpeciesViewModel(specie))
+		List<SpeciesViewModel> speciesViewModel = species.stream().map(specie -> this.mapper.convertToSpeciesViewModel(specie))
 				.collect(Collectors.toList());
 
-		return notesViewModel;
+		return speciesViewModel;
 	}
 
 	@GetMapping("/{id}")
@@ -53,9 +53,9 @@ public class SpeciesController {
 			throw new EntityNotFoundException();
 		}
 
-		SpeciesViewModel noteViewModel = this.mapper.convertToSpeciesViewModel(specie);
+		SpeciesViewModel speciesViewModel = this.mapper.convertToSpeciesViewModel(specie);
 
-		return noteViewModel;
+		return speciesViewModel;
 	}
 
 	@GetMapping("/byCategory/{categoryId}")
@@ -69,11 +69,11 @@ public class SpeciesController {
 		//}
 
 		// map to specie view model
-		List<SpeciesViewModel> notesViewModel = species.stream()
+		List<SpeciesViewModel> speciesViewModel = species.stream()
 				.map(specie -> this.mapper.convertToSpeciesViewModel(specie))
 				.collect(Collectors.toList());
 
-		return notesViewModel;
+		return speciesViewModel;
 	}
 
 	@PostMapping
@@ -82,12 +82,12 @@ public class SpeciesController {
 			throw new ValidationException();
 		}
 
-		Species noteEntity = this.mapper.convertToEspeciesEntity(speciesCreateViewModel);
+		Species speciesEntity = this.mapper.convertToEspeciesEntity(speciesCreateViewModel);
 
 		// save specie instance to db
-		this.speciesRepository.save(noteEntity);
+		this.speciesRepository.save(speciesEntity);
 
-		return noteEntity;
+		return speciesEntity;
 	}
 
 	@DeleteMapping("/{id}")
